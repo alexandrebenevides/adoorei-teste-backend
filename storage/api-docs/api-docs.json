@@ -1,0 +1,25 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API da Loja ABC LTDA",
+        "description": "Documentação de todos os endpoints da API.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Produtos"
+                ],
+                "summary": "Listagem de todos os produtos",
+                "description": "Obtêm toda a listagem de produtos cadastrados",
+                "operationId": "1d83efbd6c8b6354f3714a56a4528310",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    }
+}
