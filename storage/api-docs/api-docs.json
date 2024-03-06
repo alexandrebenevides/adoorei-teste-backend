@@ -34,6 +34,34 @@
                 }
             }
         },
+        "/api/sale/{id}": {
+            "get": {
+                "tags": [
+                    "Venda"
+                ],
+                "summary": "Consultar uma única venda ativa",
+                "operationId": "c279c2d563fc221d5d311015270f05cb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da venda a ser consultada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso"
+                    },
+                    "404": {
+                        "description": "Venda não encontrada"
+                    }
+                }
+            }
+        },
         "/api/sale": {
             "post": {
                 "tags": [

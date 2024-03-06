@@ -19,21 +19,21 @@ class SaleService
     public function getAllSales($onlyActives)
     {
         $sales = $this->saleRepository->all($onlyActives)->map(function ($sale) {
-            return [
-                'sales_id' => $sale->id,
-                'amount' => $sale->total_price,
-                'products' => $sale->products->map(function ($product) {
-                    return [
-                        'product_id' => $product->id,
-                        'name' => $product->name,
-                        'price' => $product->price,
-                        'amount' => $product->pivot->amount,
-                    ];
-                }),
-            ];
+            return $this->formatSaleData($sale);
         });
 
         return $sales;
+    }
+
+    public function getSale($id)
+    {
+        $sale = $this->saleRepository->find($id);
+
+        if (is_null($sale) || !is_null($sale->canceled_at)) {
+            return null;
+        }
+
+        return $this->formatSaleData($sale);
     }
 
     public function store(array $products)
@@ -44,5 +44,20 @@ class SaleService
         }, $products);
 
         return $this->saleRepository->create($products);
+    }
+
+    private function formatSaleData($sale) {
+        return [
+            'sales_id' => $sale->id,
+            'amount' => $sale->total_price,
+            'products' => $sale->products->map(function ($product) {
+                return [
+                    'product_id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'amount' => $product->pivot->amount,
+                ];
+            }),
+        ];
     }
 }

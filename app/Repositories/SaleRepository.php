@@ -13,6 +13,11 @@ class SaleRepository
         })->get();
     }
 
+    public function find($id)
+    {
+        return Sale::whereId($id)->first();
+    }
+
     public function create(array $products)
     {
         $totalPrice = 0;

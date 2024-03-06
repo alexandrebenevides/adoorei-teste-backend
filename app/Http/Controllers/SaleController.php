@@ -30,6 +30,33 @@ class SaleController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/api/sale/{id}",
+     *     tags={"Venda"},
+     *     summary="Consultar uma única venda ativa",
+     * @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID da venda a ser consultada",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response="200", description="Sucesso"),
+     *     @OA\Response(response="404", description="Venda não encontrada")
+     * )
+     */
+    public function get($id)
+    {
+        $sale = $this->saleService->getSale($id);
+
+        if (is_null($sale)) {
+            return response()->json(['message' => 'Venda não encontrada.'], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json($sale);
+    }
+
+    /**
      * @OA\Post(
      *     path="/api/sale",
      *     tags={"Venda"},
