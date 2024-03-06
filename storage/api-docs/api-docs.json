@@ -9,14 +9,51 @@
         "/api/products": {
             "get": {
                 "tags": [
-                    "Produtos"
+                    "Produto"
                 ],
                 "summary": "Listagem de todos os produtos",
                 "description": "Obtêm toda a listagem de produtos cadastrados",
                 "operationId": "1d83efbd6c8b6354f3714a56a4528310",
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Sucesso"
+                    }
+                }
+            }
+        },
+        "/api/sale": {
+            "post": {
+                "tags": [
+                    "Venda"
+                ],
+                "summary": "Realiza o cadastro de uma nova venda com um ou mais produtos",
+                "operationId": "a4679729ade7c8239f4311330b84da7f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "product_id": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "amount": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sucesso"
                     }
                 }
             }

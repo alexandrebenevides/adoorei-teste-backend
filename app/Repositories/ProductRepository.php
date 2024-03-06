@@ -10,4 +10,14 @@ class ProductRepository
     {
         return Product::all();
     }
+
+    public function find(int $productId)
+    {
+        return Product::whereId($productId)->first();
+    }
+
+    public function getProductPrice(int $productId)
+    {
+        return $this->find($productId)->price;
+    }
 }
