@@ -1,19 +1,22 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Http\Response;
 
 class ProductControllerTest extends TestCase
 {
-    public function testListReturnsJsonResponse()
+    /**
+     * Testa se a listagem de produtos retorna uma resposta JSON
+     * na estrutura correta.
+     */
+    public function testListProductsReturnsJsonResponse()
     {
         $response = $this->get('/api/products');
-        $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['id', 'name', 'price', 'description']
-        ]);
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertJsonStructure(['*' => ['id', 'name', 'price', 'description']]);
     }
 }
