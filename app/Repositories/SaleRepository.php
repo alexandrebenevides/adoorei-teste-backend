@@ -19,23 +19,9 @@ class SaleRepository
         return Sale::whereId($saleId)->first();
     }
 
-    public function create(array $products)
+    public function create()
     {
-        $totalPrice = 0;
-        $productsSale = [];
-
-        foreach ($products as $product) {
-            $totalPrice += $product['price'] * $product['amount'];
-        
-            $productsSale[] = [
-                'product_id' => $product['product_id'],
-                'amount' => $product['amount']
-            ];
-        }
-
-        $sale = Sale::create(['total_price' => $totalPrice]);
-        $sale->products()->attach($productsSale);
-
+        $sale = Sale::create();
         return $sale;
     }
 

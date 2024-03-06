@@ -34,7 +34,7 @@ class SaleController extends Controller
      *     path="/api/sale/{id}",
      *     tags={"Venda"},
      *     summary="Consulta uma venda ativa",
-     * @OA\Parameter(
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
@@ -82,16 +82,54 @@ class SaleController extends Controller
     }
 
     /**
+     * @OA\Post(
+     *     path="/api/sale/{id}/products",
+     *     tags={"Venda"},
+     *     summary="Cadastra novos produtos em uma venda ativa",
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="ID da venda",
+     *          @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(
+     *                 type="object",
+     *                 @OA\Property(property="product_id", type="integer", example=2),
+     *                 @OA\Property(property="amount", type="integer", example=1),
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(response="201", description="Sucesso"),
+     *     @OA\Response(response="404", description="Venda não encontrada")
+     * )
+     */
+    public function storeProducts(int $id, Request $request)
+    {
+        $sale = $this->saleService->storeProducts($id, $request->all());
+
+        if (is_null($sale)) {
+            return response()->json(['message' => 'Venda não encontrada.'], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json(['message' => 'Os produtos foram adicionados na venda.'], Response::HTTP_CREATED);
+    }
+
+    /**
      * @OA\Delete(
      *     path="/api/sale/{id}",
      *     tags={"Venda"},
      *     summary="Cancela uma venda específica",
-     * @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         description="ID da venda a ser cancelada",
-     *         @OA\Schema(type="integer")
+     *     @OA\Parameter(
+    *          name="id",
+    *          in="path",
+    *          required=true,
+    *          description="ID da venda a ser cancelada",
+    *          @OA\Schema(type="integer")
      *     ),
      *     @OA\Response(response="200", description="Sucesso"),
      *     @OA\Response(response="404", description="Venda não encontrada")

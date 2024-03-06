@@ -39,12 +39,37 @@ class SaleService
 
     public function store(array $products)
     {
-        $products = array_map(function($product) {
-            $product['price'] = $this->productRepository->getProductPrice($product['product_id']);
-            return $product;
-        }, $products);
+        $sale = $this->saleRepository->create();
+        $this->storeProducts($sale->id, $products);
 
-        return $this->saleRepository->create($products);
+        return $sale;
+    }
+
+    public function storeProducts(int $saleId, array $products)
+    {
+        $sale = $this->saleRepository->find($saleId);
+
+        if (is_null($sale) || !is_null($sale->canceled_at)) {
+            return null;
+        }
+
+        $totalPrice = 0;
+        $productsSale = [];
+
+        foreach ($products as $product) {
+            $product['price'] = $this->productRepository->getProductPrice($product['product_id']);
+            $totalPrice += $product['price'] * $product['amount'];
+        
+            $productsSale[] = [
+                'product_id' => $product['product_id'],
+                'amount' => $product['amount']
+            ];
+        }
+
+        $sale->products()->attach($productsSale);
+        $sale->update(['total_price' => $sale->total_price + $totalPrice]);
+
+        return $sale;
     }
 
     public function cancelSale(int $saleId)

@@ -124,6 +124,57 @@
                     }
                 }
             }
+        },
+        "/api/sale/{id}/products": {
+            "post": {
+                "tags": [
+                    "Venda"
+                ],
+                "summary": "Cadastra novos produtos em uma venda ativa",
+                "operationId": "9806c2a7687f6ca3e3c06a0482c334f6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da venda",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "product_id": {
+                                            "type": "integer",
+                                            "example": 2
+                                        },
+                                        "amount": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sucesso"
+                    },
+                    "404": {
+                        "description": "Venda não encontrada"
+                    }
+                }
+            }
         }
     }
 }
