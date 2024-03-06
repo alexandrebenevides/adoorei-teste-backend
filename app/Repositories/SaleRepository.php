@@ -2,11 +2,17 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Sale;
 
 class SaleRepository
 {
+    public function all($onlyActives)
+    {
+        return Sale::when($onlyActives, function ($query, bool $onlyActives) {
+            $query->whereNull('canceled_at');
+        })->get();
+    }
+
     public function create(array $products)
     {
         $totalPrice = 0;

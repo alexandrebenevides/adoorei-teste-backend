@@ -16,6 +16,20 @@ class SaleController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/api/sales",
+     *     tags={"Venda"},
+     *     summary="Listagem de todas as vendas realizadas que estão ativas",
+     *     @OA\Response(response="200", description="Sucesso")
+     * )
+     */
+    public function list()
+    {
+        $sales = $this->saleService->getAllSales(true);
+        return response()->json($sales);
+    }
+
+    /**
      * @OA\Post(
      *     path="/api/sale",
      *     tags={"Venda"},

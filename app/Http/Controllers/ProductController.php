@@ -18,8 +18,7 @@ class ProductController extends Controller
      * @OA\Get(
      *     path="/api/products",
      *     tags={"Produto"},
-     *     summary="Listagem de todos os produtos",
-     *     description="Obtêm toda a listagem de produtos cadastrados",
+     *     summary="Listagem de todos os produtos cadastrados",
      *     @OA\Response(response="200", description="Sucesso")
      * )
      */

@@ -11,9 +11,22 @@
                 "tags": [
                     "Produto"
                 ],
-                "summary": "Listagem de todos os produtos",
-                "description": "Obtêm toda a listagem de produtos cadastrados",
+                "summary": "Listagem de todos os produtos cadastrados",
                 "operationId": "1d83efbd6c8b6354f3714a56a4528310",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso"
+                    }
+                }
+            }
+        },
+        "/api/sales": {
+            "get": {
+                "tags": [
+                    "Venda"
+                ],
+                "summary": "Listagem de todas as vendas realizadas que estão ativas",
+                "operationId": "38dcb8dd434436558605c507cc2f5132",
                 "responses": {
                     "200": {
                         "description": "Sucesso"

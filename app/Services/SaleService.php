@@ -16,6 +16,26 @@ class SaleService
         $this->productRepository = $productRepository;
     }
 
+    public function getAllSales($onlyActives)
+    {
+        $sales = $this->saleRepository->all($onlyActives)->map(function ($sale) {
+            return [
+                'sales_id' => $sale->id,
+                'amount' => $sale->total_price,
+                'products' => $sale->products->map(function ($product) {
+                    return [
+                        'product_id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'amount' => $product->pivot->amount,
+                    ];
+                }),
+            ];
+        });
+
+        return $sales;
+    }
+
     public function store(array $products)
     {
         $products = array_map(function ($product) {
