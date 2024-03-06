@@ -10,3 +10,4 @@ Route::get('/products', [ProductController::class, 'list']);
 Route::get('/sales', [SaleController::class, 'list']);
 Route::get('/sale/{id}', [SaleController::class, 'get']);
 Route::post('/sale', [SaleController::class, 'store']);
+Route::delete('/sale/{id}', [SaleController::class, 'cancel']);

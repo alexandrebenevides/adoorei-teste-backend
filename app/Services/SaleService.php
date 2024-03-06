@@ -46,6 +46,17 @@ class SaleService
         return $this->saleRepository->create($products);
     }
 
+    public function cancelSale($id)
+    {
+        $sale = $this->saleRepository->find($id);
+
+        if (is_null($sale) || !is_null($sale->canceled_at)) {
+            return null;
+        }
+
+        return $this->saleRepository->cancel($id);
+    }
+
     private function formatSaleData($sale) {
         return [
             'sales_id' => $sale->id,

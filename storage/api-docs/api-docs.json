@@ -25,7 +25,7 @@
                 "tags": [
                     "Venda"
                 ],
-                "summary": "Listagem de todas as vendas realizadas que estão ativas",
+                "summary": "Lista todas as vendas realizadas e que estão ativas",
                 "operationId": "38dcb8dd434436558605c507cc2f5132",
                 "responses": {
                     "200": {
@@ -39,13 +39,39 @@
                 "tags": [
                     "Venda"
                 ],
-                "summary": "Consultar uma única venda ativa",
+                "summary": "Consulta uma venda ativa",
                 "operationId": "c279c2d563fc221d5d311015270f05cb",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
                         "description": "ID da venda a ser consultada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso"
+                    },
+                    "404": {
+                        "description": "Venda não encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Venda"
+                ],
+                "summary": "Cancela uma venda específica",
+                "operationId": "5b30d54920b1d3e90ddd97ec051a4744",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da venda a ser cancelada",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -67,7 +93,7 @@
                 "tags": [
                     "Venda"
                 ],
-                "summary": "Realiza o cadastro de uma nova venda com um ou mais produtos",
+                "summary": "Cadastra uma nova venda com um ou mais produtos",
                 "operationId": "a4679729ade7c8239f4311330b84da7f",
                 "requestBody": {
                     "required": true,

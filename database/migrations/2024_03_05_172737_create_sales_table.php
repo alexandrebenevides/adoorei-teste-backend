@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->decimal('total_price', 8, 2);
-            $table->datetime('canceled_at')->nullable();
+            $table->dateTime('canceled_at')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Sale;
+use Carbon\Carbon;
 
 class SaleRepository
 {
@@ -35,6 +36,15 @@ class SaleRepository
         $sale = Sale::create(['total_price' => $totalPrice]);
         $sale->products()->attach($productsSale);
 
+        return $sale;
+    }
+
+    public function cancel($id)
+    {
+        $sale = $this->find($id);
+        $sale->canceled_at = Carbon::now();
+        $sale->save();
+        
         return $sale;
     }
 }

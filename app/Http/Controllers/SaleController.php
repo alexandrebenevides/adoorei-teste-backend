@@ -19,7 +19,7 @@ class SaleController extends Controller
      * @OA\Get(
      *     path="/api/sales",
      *     tags={"Venda"},
-     *     summary="Listagem de todas as vendas realizadas que estão ativas",
+     *     summary="Lista todas as vendas realizadas e que estão ativas",
      *     @OA\Response(response="200", description="Sucesso")
      * )
      */
@@ -33,7 +33,7 @@ class SaleController extends Controller
      * @OA\Get(
      *     path="/api/sale/{id}",
      *     tags={"Venda"},
-     *     summary="Consultar uma única venda ativa",
+     *     summary="Consulta uma venda ativa",
      * @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -60,7 +60,7 @@ class SaleController extends Controller
      * @OA\Post(
      *     path="/api/sale",
      *     tags={"Venda"},
-     *     summary="Realiza o cadastro de uma nova venda com um ou mais produtos",
+     *     summary="Cadastra uma nova venda com um ou mais produtos",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -79,5 +79,32 @@ class SaleController extends Controller
     {
         $this->saleService->store($request->all());
         return response()->json(['message' => 'Venda cadastrada com sucesso.'], Response::HTTP_CREATED);
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/sale/{id}",
+     *     tags={"Venda"},
+     *     summary="Cancela uma venda específica",
+     * @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID da venda a ser cancelada",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response="200", description="Sucesso"),
+     *     @OA\Response(response="404", description="Venda não encontrada")
+     * )
+     */
+    public function cancel($id)
+    {
+        $sale = $this->saleService->cancelSale($id);
+
+        if (is_null($sale)) {
+            return response()->json(['message' => 'Venda não encontrada.'], Response::HTTP_NOT_FOUND);
+        }
+
+        return response()->json(['message' => 'Venda cancelada com sucesso']);
     }
 }
