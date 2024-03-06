@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\SaleService;
+use App\Helpers\RequestValidatorHelper;
 
 class SaleController extends Controller
 {
@@ -47,12 +48,11 @@ class SaleController extends Controller
      */
     public function get($id)
     {
+        RequestValidatorHelper::make(['id' => $id], [
+            'id' => 'required|integer|exists:sales,id',
+        ]);
+
         $sale = $this->saleService->getSale($id);
-
-        if (is_null($sale)) {
-            return response()->json(['message' => 'A venda não foi encontrada.'], Response::HTTP_NOT_FOUND);
-        }
-
         return response()->json($sale);
     }
 
@@ -77,8 +77,13 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
+        RequestValidatorHelper::make($request->all(), [
+            '*.product_id' => 'required|integer|exists:products,id',
+            '*.amount' => 'required|integer|min:1',
+        ]);
+
         $this->saleService->store($request->all());
-        return response()->json(['message' => 'Venda cadastrada com sucesso.'], Response::HTTP_CREATED);
+        return response()->json(['message' => 'A venda foi cadastrada com sucesso.'], Response::HTTP_CREATED);
     }
 
     /**
@@ -110,12 +115,13 @@ class SaleController extends Controller
      */
     public function storeProducts(int $id, Request $request)
     {
+        RequestValidatorHelper::make(array_merge(['id' => $id], ['products' => $request->all()]), [
+            'id' => 'required|integer|exists:sales,id',
+            'products.*.product_id' => 'required|integer|exists:products,id',
+            'products.*.amount' => 'required|integer|min:1',
+        ]);
+
         $sale = $this->saleService->storeProducts($id, $request->all());
-
-        if (is_null($sale)) {
-            return response()->json(['message' => 'A venda não foi encontrada.'], Response::HTTP_NOT_FOUND);
-        }
-
         return response()->json(['message' => 'Os produtos foram adicionados na venda.'], Response::HTTP_CREATED);
     }
 
@@ -137,12 +143,11 @@ class SaleController extends Controller
      */
     public function cancel($id)
     {
+        RequestValidatorHelper::make(['id' => $id], [
+            'id' => 'required|integer|exists:sales,id',
+        ]);
+
         $sale = $this->saleService->cancelSale($id);
-
-        if (is_null($sale)) {
-            return response()->json(['message' => 'A venda não foi encontrada.'], Response::HTTP_NOT_FOUND);
-        }
-
-        return response()->json(['message' => 'Venda cancelada com sucesso.']);
+        return response()->json(['message' => 'A venda foi cancelada com sucesso.']);
     }
 }

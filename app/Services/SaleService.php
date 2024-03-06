@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\CanceledSaleException;
 use App\Repositories\SaleRepository;
 use App\Repositories\ProductRepository;
 use App\Models\Sale;
@@ -30,8 +31,8 @@ class SaleService
     {
         $sale = $this->saleRepository->find($saleId);
 
-        if (is_null($sale) || !is_null($sale->canceled_at)) {
-            return null;
+        if (!is_null($sale->canceled_at)) {
+            throw new CanceledSaleException();
         }
 
         return $this->formatSaleData($sale);
@@ -49,8 +50,8 @@ class SaleService
     {
         $sale = $this->saleRepository->find($saleId);
 
-        if (is_null($sale) || !is_null($sale->canceled_at)) {
-            return null;
+        if (!is_null($sale->canceled_at)) {
+            throw new CanceledSaleException();
         }
 
         $totalPrice = 0;
@@ -76,8 +77,8 @@ class SaleService
     {
         $sale = $this->saleRepository->find($saleId);
 
-        if (is_null($sale) || !is_null($sale->canceled_at)) {
-            return null;
+        if (!is_null($sale->canceled_at)) {
+            throw new CanceledSaleException();
         }
 
         return $this->saleRepository->cancel($saleId);
