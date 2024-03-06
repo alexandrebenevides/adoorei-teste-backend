@@ -50,7 +50,7 @@ class SaleController extends Controller
         $sale = $this->saleService->getSale($id);
 
         if (is_null($sale)) {
-            return response()->json(['message' => 'Venda não encontrada.'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'A venda não foi encontrada.'], Response::HTTP_NOT_FOUND);
         }
 
         return response()->json($sale);
@@ -113,7 +113,7 @@ class SaleController extends Controller
         $sale = $this->saleService->storeProducts($id, $request->all());
 
         if (is_null($sale)) {
-            return response()->json(['message' => 'Venda não encontrada.'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'A venda não foi encontrada.'], Response::HTTP_NOT_FOUND);
         }
 
         return response()->json(['message' => 'Os produtos foram adicionados na venda.'], Response::HTTP_CREATED);
@@ -140,9 +140,9 @@ class SaleController extends Controller
         $sale = $this->saleService->cancelSale($id);
 
         if (is_null($sale)) {
-            return response()->json(['message' => 'Venda não encontrada.'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'A venda não foi encontrada.'], Response::HTTP_NOT_FOUND);
         }
 
-        return response()->json(['message' => 'Venda cancelada com sucesso']);
+        return response()->json(['message' => 'Venda cancelada com sucesso.']);
     }
 }
