@@ -15,7 +15,7 @@ class ProductService
 
     public function getAllProducts()
     {
-        return $this->productRepository->all()->map(function ($product) {
+        return $this->productRepository->all()->map(function($product) {
             return [
                 'id' => $product->id,
                 'name' => $product->name,

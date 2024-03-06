@@ -7,16 +7,16 @@ use Carbon\Carbon;
 
 class SaleRepository
 {
-    public function all($onlyActives)
+    public function all(bool $onlyActives)
     {
         return Sale::when($onlyActives, function ($query, bool $onlyActives) {
             $query->whereNull('canceled_at');
         })->get();
     }
 
-    public function find($id)
+    public function find(int $saleId)
     {
-        return Sale::whereId($id)->first();
+        return Sale::whereId($saleId)->first();
     }
 
     public function create(array $products)
@@ -39,9 +39,9 @@ class SaleRepository
         return $sale;
     }
 
-    public function cancel($id)
+    public function cancel(int $saleId)
     {
-        $sale = $this->find($id);
+        $sale = $this->find($saleId);
         $sale->canceled_at = Carbon::now();
         $sale->save();
         
