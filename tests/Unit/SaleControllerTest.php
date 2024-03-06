@@ -33,7 +33,7 @@ class SaleControllerTest extends TestCase
     public function testListSalesReturnsJsonResponse()
     {
         $response = $this->get('/api/sales');
-        info([$response->getContent()]);
+        
         $response->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure([
                 '*' => [
