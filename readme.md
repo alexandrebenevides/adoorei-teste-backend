@@ -1,116 +1,50 @@
-
-<p align="center">
-<a href="hhttps://www.adoorei.com.br/" target="_blank">
-<img src="https://adoorei.s3.us-east-2.amazonaws.com/images/loje_teste_logoadoorei_1662476663.png" width="160"></a>
-</p>
-
 # Desafio desenvolvedor back-end
 
-Seja muito bem-vindo(a), futuro desenvolvedor da Adoorei.
+[![Laravel](https://img.shields.io/badge/Laravel-10.x-red.svg)](https://laravel.com)
+[![Sail](https://img.shields.io/badge/Sail-1.x-red.svg)](https://livewire.laravel.com/)
 
-Nós, recrutadores juntamente com a nossa equipe de ENGENHARIA, desenvolvemos um teste prático para conhecer um pouco mais sobre suas habilidade 
+Esse projeto em Laravel foi desenvolvido para o desafio de desenvolvedor back-end. 
+
+A proposta de desenvolvimento pode ser consultada no repositório de origem:
+https://github.com/adooreicheckout/adoorei-teste-backend
 
 
+## Como configurar?
 
-## Objetivo
-Utilizando o  <a href=“https://laravel.com/docs/10.x“>Laravel</a> cria uma API rest, que resolva o seguinte cenário:
+1. Clone o repositório e acesse o diretório raiz do projeto;
+2. Instale as dependências:
+   
+   ```bash
+    composer install
+    ```
+4. Crie uma cópia do arquivo *.env.example* e renomei para *.env*;
+5. Subir containers pelo Laravel Sail:
+   ```bash
+    ./vendor/bin/sail up -d
+    ```
+6. Gere uma key para o projeto:
+   ```bash
+    ./vendor/bin/sail artisan key:generate
+    ```
+8. Execute as migrations e seeders:
+   ```bash
+    ./vendor/bin/sail artisan migrate
 
+    ./vendor/bin/sail artisan db:seed
+    ```
 
-A Loja ABC LTDA, vende produtos de diferentes nichos. No momento precisamos registrar a venda de celulares.
+## Documentação da API
 
-Não vamos nos preocupar com o cadastro de produtos, porém precisamos ter uma tabela em nosso banco contendo os aparelhos celulares que vão ser vendidos, por exemplo:
-
-```json
-[
-    {
-        "name": "Celular 1",
-        "price": 1.800,
-        "description": "Lorenzo Ipsulum"
-    },
-    {
-        "name": "Celular 2",
-        "price": 3.200,
-        "description": "Lorem ipsum dolor"
-    },
-    {
-        "name": "Celular 3",
-        "price": 9.800,
-        "description": "Lorem ipsum dolor sit amet"
-    }
-]
+Foi utilizada a biblioteca Swagger para a criação de toda documentação da API.
+Para visualizar os endpoints e realizar testes, acessar o seguinte link:
+```bash
+http://localhost/api/documentation
 ```
 
-Uma vez que temos os produtos em nosso banco, vamos seguir com o registro de venda desses aparelhos.
+## Testes unitários
 
-Não vamos nós preucupar com informações do comprador, dados de pagamento, entrega, possibilidade de descontos.
-
-Temos que registrar somente a venda. 
-
-Então nossa consulta vai retornar algo como:
-```json
-{
-  "sales_id": "202301011",
-  "amount": 8200,
-  "products": [
-    {
-      "product_id": 1,
-      "nome": "Celular 1",
-      "price": 1.800,
-      "amount": 1
-    },
-    {
-      "product_id": 2,
-      "nome": "Celular 2",
-      "price": 3.200,
-      "amount": 2
-    },
-  ]
-}
+Foram desenvolvidos testes unitário com foco nas execução das Controllers.
+No diretório raiz do projeto, execute o seguinte comando para iniciar os testes:
+```bash
+./vendor/bin/sail artisan test --testsuite=Unit
 ```
-
-Nossa API vai ter endpoints que possibilitam
-
-* Listar produtos disponíveis
-* Cadastrar nova venda
-* Consultar vendas realizadas
-* Consultar uma venda específica
-* Cancelar uma venda
-* Cadastrar novas produtos a uma venda
-
-
-
-
-## Nossa análise
-
-Todo o seu desenvolvimento será levado em consideração. Busque alcançar o seu melhor, utilizando os recursos com os quais você se sente mais confortável.
-
-### É essencial no seu código:
-* Utilizar comandos de Migrate/Seed para a criação e atualização do seu banco de dados.
-* Este projeto é destinado a uma API Rest; portanto, respeite o formato de comunicação de entrada e saída de dados.
-* Faça commits regulares no seu código.
-
-### Pontos que irão destacar você neste desafio:
-* Utilizar Docker para a execução do seu projeto.
-* Implementar testes unitários.
-* Criar documentação para seus endpoints (utilizando ferramentas como Postman ou Insomnia).
-* Aplicar conceitos de Clean Architecture, S.O.L.I.D., Test-Driven Development (TDD), Domain-driven design (DDD), Command Query Responsibility Segregation (CQRS), Objects Calisthenics, You Ain’t Gonna Need It (YAGNI), Conventional Commits, e KISS.
-
-## Nossa análise
-
-Todo o seu desenvolvimento será levado em consideração. Busque alcançar o seu melhor, utilizando os recursos com os quais você se sente mais confortável.
-
-### É essencial no seu código:
-* Utilizar comandos de Migrate/Seed para a criação e atualização do seu banco de dados.
-* Este projeto é destinado a uma API Rest; portanto, respeite o formato de comunicação de entrada e saída de dados.
-* Faça commits regulares no seu código.
-
-### Pontos que irão destacar você neste desafio:
-* Utilizar Docker para a execução do seu projeto.
-* Implementar testes unitários.
-* Criar documentação para seus endpoints (utilizando ferramentas como Postman ou Insomnia).
-* Aplicar conceitos de Clean Architecture, S.O.L.I.D., Test-Driven Development (TDD), Domain-driven design (DDD), Command Query Responsibility Segregation (CQRS), Objects Calisthenics, You Ain’t Gonna Need It (YAGNI), Conventional Commits, e KISS.
-
-
-## Boa sorte!
-
-É isso!. Ficamos muito felizes com a sua aplicação para esse Teste. Estamos à sua disposição para tirar qualquer dúvida. Boa sorte! 😉
