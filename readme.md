@@ -18,7 +18,7 @@ https://github.com/adooreicheckout/adoorei-teste-backend
     composer install
     ```
 4. Crie uma cópia do arquivo *.env.example* e renomei para *.env*;
-5. Subir containers pelo Laravel Sail:
+5. Subir containers Docker utilizando o Laravel Sail:
    ```bash
     ./vendor/bin/sail up -d
     ```
